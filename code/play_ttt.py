@@ -38,11 +38,17 @@ def main():
     while not game.is_over():
         print_board(game.board)
         if game.next_player == human_player:
-            human_move = input('-- ')
-            point = point_from_coords(human_move.strip())
-            move = ttt.Move(point)
+            #Now take two inputs to move pawns from "from_point" to "to_point"
+            human_from_move = input('--Enter piece to move: ')
+            human_to_move = input('--Enter location to move to: ')
+            from_point = point_from_coords(human_from_move.strip())
+            to_point = point_from_coords(human_to_move.strip())
+            move = ttt.Move(from_point, to_point)
+            print("Moved piece from: ", from_point, " to: ", to_point)
         else:
             move = bot.select_move(game)
+            print (move.from_point, move.to_point)
+        #Check valid from/to movement
         game = game.apply_move(move)
 
     print_board(game.board)
